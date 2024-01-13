@@ -1,10 +1,10 @@
 resource "aws_s3_bucket" "organization_cloudtrail" {
-  bucket = "organization-cloudtrail-logs"
+  bucket = var.organization_cloudtrail
   acl    = "private"
 
   logging {
     target_bucket = aws_s3_bucket.organization_cloudtrail.bucket
-    target_prefix = "organization-cloudtrail-logs/"
+    target_prefix = "${var.organization_cloudtrail}/"
   }
 }
 
