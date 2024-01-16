@@ -35,7 +35,7 @@ resource "aws_lambda_function" "kill_chain" {
   runtime       = "python3.11"
   role          = aws_iam_role.lambda_role.arn
 
-  filename = "${path.module}/lambda_function_payload.zip"
+  filename = "./lambda/webhook.zip"
 
   environment {
     variables = {
