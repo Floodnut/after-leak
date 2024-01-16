@@ -51,6 +51,26 @@ data "archive_file" "kill_chain" {
 }
 
 ###############################################
+############## leak automation ################
+###############################################
+
+resource "aws_lambda_function" "leak_automation" {
+  depends_on = [ archive_file.kill_chain ]
+  function_name = "Leak_Automation"
+  handler       = "index.handler"
+  runtime       = "python3.11"
+  role          = aws_iam_role.lambda_role.arn
+
+  image_uri = "${var.docker_repository}/leak:latest"
+
+  environment {
+    variables = {
+      # Lambda 함수에 필요한 환경 변수
+    }
+  }
+}
+
+###############################################
 ################ permission ###################
 ###############################################
 
