@@ -28,6 +28,7 @@ brew install hashicorp/tap/terraform
 
 5. Set Lambda
 ```bash
+# src/lambda
 ```
 
 6. Up!
