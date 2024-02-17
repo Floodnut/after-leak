@@ -41,3 +41,11 @@ AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY_ID ...
 terraform init
 terraform apply
 ```
+
+## Versions
+```bash
+Terraform v1.4.0 on darwin_arm64
++ provider registry.terraform.io/hashicorp/archive v2.4.2
++ provider registry.terraform.io/hashicorp/aws v5.37.0
++ provider registry.terraform.io/hashicorp/null v3.2.2
+```
