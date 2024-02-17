@@ -1,11 +1,5 @@
 resource "aws_s3_bucket" "organization_cloudtrail" {
   bucket = var.organization_cloudtrail
-  acl    = "private"
-
-  logging {
-    target_bucket = aws_s3_bucket.organization_cloudtrail.bucket
-    target_prefix = "${var.organization_cloudtrail}/"
-  }
 }
 
 resource "aws_s3_bucket_notification" "bucket_notification" {
@@ -17,8 +11,6 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
     filter_prefix       = "AWSLogs/"
     filter_suffix       = ".log"
   }
-
-  depends_on = [aws_lambda_permission.allow_bucket]
 }
 
 resource "aws_s3_bucket_policy" "organization_cloudtrail" {
