@@ -5,3 +5,7 @@ variable "organization_cloudtrail" {
 variable "docker_repository" {
   default = "LeakOrganization"
 }
+
+variable "aws_region" {}
+variable "access_key" {}
+variable "secret_key" {}
