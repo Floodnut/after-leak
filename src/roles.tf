@@ -94,68 +94,25 @@ resource "aws_iam_role" "lambda_role" {
             "Resource": "*"
         }
     ]
-})
+  })
 }
 
-data "aws_iam_policy_document" "organization-trail-s3-put" {
-  statement {
-    sid    = "AWSCloudTrailAclCheck"
-    effect = "Allow"
-
-    principals {
-      type        = "Service"
-      identifiers = ["cloudtrail.amazonaws.com"]
-    }
-
-    actions   = ["s3:GetBucketAcl"]
-    resources = [aws_s3_bucket.organization-cloudtrail.arn]
-    condition {
-      test     = "StringEquals"
-      variable = "aws:SourceArn"
-      values   = ["arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:trail/organization"]
-    }
-  }
-
-  statement {
-    sid    = "AWSCloudTrailWrite"
-    effect = "Allow"
-
-    principals {
-      type        = "Service"
-      identifiers = ["cloudtrail.amazonaws.com"]
-    }
-
-    actions   = ["s3:PutObject"]
-    resources = ["${aws_s3_bucket.organization-cloudtrail.arn}/prefix/AWSLogs/${data.aws_caller_identity.current.account_id}/*"]
-
-    condition {
-      test     = "StringEquals"
-      variable = "s3:x-amz-acl"
-      values   = ["bucket-owner-full-control"]
-    }
-    condition {
-      test     = "StringEquals"
-      variable = "aws:SourceArn"
-      values   = ["arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:trail/organization"]
-    }
-  }
-}
-
-
-resource "aws_iam_policy_document" "cloudtrail_bucket_policy" {
-  source_json = <<POLICY
+resource "aws_iam_policy" "cloudtrail_bucket_policy" {
+  name        = "cloudtrail_bucket_policy"
+  description = "Policy for CloudTrail to write logs to an S3 bucket"
+  policy      = <<POLICY
     {
     "Version": "2012-10-17",
     "Statement": [
         {
         "Effect": "Allow",
         "Action": "s3:GetBucketAcl",
-        "Resource": "${aws_s3_bucket.cloudtrail_bucket.arn}"
+        "Resource": "${aws_s3_bucket.organization_cloudtrail.arn}"
         },
         {
         "Effect": "Allow",
         "Action": "s3:PutObject",
-        "Resource": "${aws_s3_bucket.cloudtrail_bucket.arn}/*",
+        "Resource": "${aws_s3_bucket.organization_cloudtrail.arn}/*",
         "Condition": {
             "StringEquals": {
             "s3:x-amz-acl": "bucket-owner-full-control"

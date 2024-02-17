@@ -15,5 +15,5 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
 
 resource "aws_s3_bucket_policy" "organization_cloudtrail" {
   bucket = aws_s3_bucket.organization_cloudtrail.bucket
-  policy = data.aws_iam_policy_document.cloudtrail_bucket_policy.json
+  policy = aws_iam_policy.cloudtrail_bucket_policy
 }
