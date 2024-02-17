@@ -12,9 +12,11 @@ ATTACH_EVENTS = ["Create", "Run", "Put", "Post"]
 DETTACH_EVENTS = ["Remove", "Delete"]
 PERMITTED_EVENT = {"DescribeRegions", "ListRoles", "GetSendQuota", "ListUsers"}
 
-webhook_for_leak = DiscordWebhook(url=WEBHOOK_BASE_URL + "__webhook_uri__") # leak
-webhook_for_root = DiscordWebhook(url=WEBHOOK_BASE_URL + "__webhook_uri__") # root
-webhook_for_org_root = DiscordWebhook(url=WEBHOOK_BASE_URL + "__webhook_uri__") # org root
+WEBHOOK_URL = WEBHOOK_BASE_URL + "__webhook_uri__"
+
+webhook_for_leak = DiscordWebhook(url=WEBHOOK_URL) # leak
+webhook_for_root = DiscordWebhook(url=WEBHOOK_URL) # root
+webhook_for_org_root = DiscordWebhook(url=WEBHOOK_URL) # org root
 
 webhooks: dict = {
     "__your_integer_format_account_id__": webhook_for_leak,
