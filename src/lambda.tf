@@ -61,7 +61,7 @@ resource "aws_lambda_function" "organization_webhook" {
 data "archive_file" "kill_chain" {
   type        = "zip"
   source_file = "./lambda/kill_chain.py"
-  output_path = "./lambda/kill_chainzip"
+  output_path = "./lambda/kill_chain.zip"
 }
 
 resource "aws_lambda_function" "kill_chain" {
