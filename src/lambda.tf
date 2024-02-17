@@ -40,6 +40,7 @@ resource "aws_lambda_function" "organization_webhook" {
   layers = [ aws_lambda_layer_version.python_layer.arn ]
   function_name = "function_organization_webhook"
   runtime       = "python3.11"
+  handler = "webhook.lambda_handler"
   role          = aws_iam_role.lambda_role.arn
 
   #filename = "./lambda/webhook.zip"
@@ -67,7 +68,8 @@ resource "aws_lambda_function" "kill_chain" {
   layers = [ aws_lambda_layer_version.python_layer.arn ]
   function_name = "function_kill_chain"
   runtime       = "python3.11"
-  role          = aws_iam_role.lambda_role.arn
+  handler       = "kill_chain.lambda_handler"
+  role          = aws_iam_role.lambdsa_role.arn
 
   #filename = "./lambda/kill_chain.zip"
   filename         = data.archive_file.kill_chain.output_path
