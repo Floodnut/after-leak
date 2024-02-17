@@ -69,7 +69,7 @@ resource "aws_lambda_function" "kill_chain" {
   function_name = "function_kill_chain"
   runtime       = "python3.11"
   handler       = "kill_chain.lambda_handler"
-  role          = aws_iam_role.lambdsa_role.arn
+  role          = aws_iam_role.lambda_role.arn
 
   #filename = "./lambda/kill_chain.zip"
   filename         = data.archive_file.kill_chain.output_path
